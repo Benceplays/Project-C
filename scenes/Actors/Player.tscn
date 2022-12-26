@@ -6,11 +6,13 @@
 [node name="Player" type="Node2D"]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+physics_interpolation_mode = 2
+input_pickable = true
 motion/sync_to_physics = true
 script = ExtResource( 2 )
 speed = 1000
 
-[node name="Wallright" type="Sprite" parent="KinematicBody2D"]
+[node name="Player" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 450.5, 371 )
 scale = Vector2( 0.0380208, 0.103704 )
 texture = ExtResource( 1 )
