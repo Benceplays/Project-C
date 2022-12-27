@@ -18,7 +18,7 @@ public class Login : Node2D
 
     public void _on_LoginButton_pressed()
     {
-            string server = "localhost";
+            string server = "192.168.1.249";
             string database = "wildem";
             string usernamee = "root";
             string passwordd = "";
