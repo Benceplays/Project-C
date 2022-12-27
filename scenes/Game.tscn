@@ -42,6 +42,22 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
+
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Actors/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/images/wallright.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/burnbackground.png" type="Texture" id=3]
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 0, 0, 19, 0, 19, 16, 0, 16 )
+
+[sub_resource type="TileSet" id=1]
+0/name = "burnbackground.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 66, 78, 11, 2 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
