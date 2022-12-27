@@ -26,19 +26,16 @@ public class Login : Node2D
                                "UID=" + usernamee + ";" + "PASSWORD=" + passwordd + ";";
             MySqlConnection conn = new MySqlConnection(constring);
             conn.Open();
-            string query = $"SELECT * FROM login WHERE username='{username}'";
+            string query = $"SELECT * FROM login WHERE username='{username.Text}' and password='{password.Text}'";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                GD.Print(reader["password"]);
                 if (!(username.Text == "" && password.Text == ""))
                 {
-                    if (password.Text == Convert.ToString(reader["password"]))
-                    {
-                        GD.Print("Sikeres bejelentkezés");
-                        reader.Close();
-                    }
+                    GD.Print("Sikeres bejelentkezés");
+                    reader.Close();
+                    GetTree().ChangeScene("res://scenes/Menu.tscn");
                 }
                 else
                 {
@@ -48,7 +45,7 @@ public class Login : Node2D
             }
         else
         {
-            GD.Print("Nem csatlakozik");
+            GD.Print("Nem lehet olvasni");
         }
         
     }

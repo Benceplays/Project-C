@@ -58,6 +58,7 @@ custom_styles/read_only = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 align = 1
+secret = true
 placeholder_text = "Password"
 placeholder_alpha = 0.8
 
