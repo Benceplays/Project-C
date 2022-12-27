@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/images/zombie3.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/zombie1.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/zombie2.png" type="Texture" id=3]
+[ext_resource path="res://scripts/KinematicBody2D.cs" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 36.0
+height = 70.0
+
+[node name="Enemy" type="Node2D"]
+z_index = -1
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Zombie" type="AnimatedSprite" parent="KinematicBody2D"]
+frames = SubResource( 1 )
+animation = "Walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( -7, 0 )
+shape = SubResource( 2 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/Game.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/UpgradeButton.png" type="Texture" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://assets/images/ExitButton.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/GrassBlock.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/Tower.png" type="Texture" id=7]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Army.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Planes.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Turret.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Drone.tscn" type="PackedScene" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.588235 )
@@ -26,16 +31,16 @@ corner_radius_bottom_left = 20
 size = 30
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 20
+font_data = ExtResource( 4 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 30
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 30
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 20
 font_data = ExtResource( 4 )
 
 [sub_resource type="TileSet" id=7]
@@ -54,8 +59,15 @@ font_data = ExtResource( 4 )
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="DynamicFont" id=9]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+psarmy = ExtResource( 9 )
 
 [node name="Upgrades" type="TextureButton" parent="."]
 margin_left = 33.0
@@ -78,9 +90,9 @@ margin_bottom = 485.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="Army" type="Panel" parent="Upgrade"]
-margin_left = 15.0
+margin_left = 40.0
 margin_top = 63.0
-margin_right = 372.0
+margin_right = 397.0
 margin_bottom = 132.0
 custom_styles/panel = SubResource( 2 )
 
@@ -104,10 +116,18 @@ margin_bottom = 54.0
 custom_fonts/font = SubResource( 3 )
 text = "Army"
 
+[node name="ArmyLvL" type="Label" parent="Upgrade/Army"]
+margin_left = 175.0
+margin_top = 23.0
+margin_right = 230.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "LVL. 6"
+
 [node name="AirForce" type="Panel" parent="Upgrade"]
-margin_left = 15.0
+margin_left = 40.0
 margin_top = 161.0
-margin_right = 372.0
+margin_right = 397.0
 margin_bottom = 230.0
 custom_styles/panel = SubResource( 2 )
 
@@ -131,10 +151,18 @@ margin_bottom = 55.0
 custom_fonts/font = SubResource( 4 )
 text = "Air Force"
 
+[node name="AirForceLvL" type="Label" parent="Upgrade/AirForce"]
+margin_left = 175.0
+margin_top = 24.0
+margin_right = 230.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 8 )
+text = "LVL. 6"
+
 [node name="Turret" type="Panel" parent="Upgrade"]
-margin_left = 15.0
+margin_left = 40.0
 margin_top = 265.0
-margin_right = 372.0
+margin_right = 397.0
 margin_bottom = 334.0
 custom_styles/panel = SubResource( 2 )
 
@@ -158,6 +186,14 @@ margin_bottom = 52.0
 custom_fonts/font = SubResource( 5 )
 text = "Turrets"
 
+[node name="TurretsLvL" type="Label" parent="Upgrade/Turret"]
+margin_left = 175.0
+margin_top = 23.0
+margin_right = 230.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "LVL. 6"
+
 [node name="ExitButton" type="TextureButton" parent="Upgrade"]
 margin_left = 381.0
 margin_top = 8.0
@@ -170,30 +206,6 @@ texture_disabled = ExtResource( 5 )
 texture_focused = ExtResource( 5 )
 expand = true
 
-[node name="ArmaLvL" type="Label" parent="Upgrade"]
-margin_left = 190.0
-margin_top = 86.0
-margin_right = 245.0
-margin_bottom = 112.0
-custom_fonts/font = SubResource( 8 )
-text = "LVL. 6"
-
-[node name="AirForceLvL" type="Label" parent="Upgrade"]
-margin_left = 190.0
-margin_top = 185.0
-margin_right = 245.0
-margin_bottom = 211.0
-custom_fonts/font = SubResource( 8 )
-text = "LVL. 6"
-
-[node name="TurretsLvL" type="Label" parent="Upgrade"]
-margin_left = 190.0
-margin_top = 290.0
-margin_right = 245.0
-margin_bottom = 316.0
-custom_fonts/font = SubResource( 8 )
-text = "LVL. 6"
-
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
 tile_set = SubResource( 7 )
@@ -203,10 +215,38 @@ format = 1
 tile_data = PoolIntArray( 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1114118, 0, 0, 1114119, 0, 0, 1114120, 0, 0, 1114121, 0, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0, 1114128, 0, 0, 1114129, 0, 0, 1114130, 0, 0, 1114131, 0, 0, 1114132, 0, 0, 1114133, 0, 0, 1114134, 0, 0, 1114136, 0, 0, 1114137, 0, 0, 1114138, 0, 0, 1114139, 0, 0, 1114140, 0, 0, 1114141, 0, 0, 1114142, 0, 0, 1114143, 0, 0, 1114144, 0, 0, 1114145, 0, 0, 1114146, 0, 0, 1114147, 0, 0, 1114148, 0, 0, 1114149, 0, 0, 1114150, 0, 0, 1114151, 0, 0, 1114152, 0, 0, 1114153, 0, 0, 1114154, 0, 0, 1114155, 0, 0, 1114156, 0, 0, 1114158, 0, 0, 1114159, 0, 0, 1114160, 0, 0, 1114161, 0, 0, 1114162, 0, 0, 1114163, 0, 0, 1114164, 0, 0, 1114165, 0, 0, 1114166, 0, 0 )
 
 [node name="Tower" type="Sprite" parent="."]
-position = Vector2( 128, 403 )
+position = Vector2( 108, 404 )
 scale = Vector2( 0.5, 0.5 )
 z_index = -2
 texture = ExtResource( 7 )
+
+[node name="Enemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1330, 484 )
+
+[node name="Army" parent="." instance=ExtResource( 9 )]
+position = Vector2( -157, 477 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 511, 299 )
+current = true
+
+[node name="Planes" parent="." instance=ExtResource( 10 )]
+position = Vector2( -234, 92 )
+
+[node name="Turret" parent="." instance=ExtResource( 11 )]
+position = Vector2( 156, 232 )
+
+[node name="MoneyLabel" type="Label" parent="."]
+modulate = Color( 0.992157, 1, 0, 1 )
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 177.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 9 )
+text = "Your Money: $200"
+
+[node name="Drone" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1109, 95 )
 
 [connection signal="pressed" from="Upgrades" to="." method="_on_Upgrades_pressed"]
 [connection signal="pressed" from="Upgrade/ExitButton" to="." method="_on_ExitButton_pressed"]
