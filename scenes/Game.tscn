@@ -82,6 +82,8 @@ font_data = ExtResource( 4 )
 script = ExtResource( 1 )
 psarmy = ExtResource( 9 )
 psplane = ExtResource( 10 )
+psdrone = ExtResource( 12 )
+pszombie = ExtResource( 8 )
 
 [node name="Upgrades" type="TextureButton" parent="."]
 margin_left = 33.0
@@ -190,7 +192,7 @@ custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/disabled = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-text = "Upgrade"
+text = "Buy"
 
 [node name="Label" type="Label" parent="Upgrade/Turret"]
 margin_left = 19.0
@@ -228,19 +230,8 @@ cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
 tile_data = PoolIntArray( 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1114118, 0, 0, 1114119, 0, 0, 1114120, 0, 0, 1114121, 0, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0, 1114128, 0, 0, 1114129, 0, 0, 1114130, 0, 0, 1114131, 0, 0, 1114132, 0, 0, 1114133, 0, 0, 1114134, 0, 0, 1114136, 0, 0, 1114137, 0, 0, 1114138, 0, 0, 1114139, 0, 0, 1114140, 0, 0, 1114141, 0, 0, 1114142, 0, 0, 1114143, 0, 0, 1114144, 0, 0, 1114145, 0, 0, 1114146, 0, 0, 1114147, 0, 0, 1114148, 0, 0, 1114149, 0, 0, 1114150, 0, 0, 1114151, 0, 0, 1114152, 0, 0, 1114153, 0, 0, 1114154, 0, 0, 1114155, 0, 0, 1114156, 0, 0, 1114158, 0, 0, 1114159, 0, 0, 1114160, 0, 0, 1114161, 0, 0, 1114162, 0, 0, 1114163, 0, 0, 1114164, 0, 0, 1114165, 0, 0, 1114166, 0, 0 )
 
-[node name="Drone" parent="." instance=ExtResource( 12 )]
-position = Vector2( 1109, 95 )
-
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1330, 484 )
-
-[node name="Army" parent="." instance=ExtResource( 9 )]
-position = Vector2( -85, 437 )
-
-[node name="Planes" parent="." instance=ExtResource( 10 )]
-position = Vector2( -88, 92 )
-
 [node name="Turret" parent="." instance=ExtResource( 11 )]
+visible = false
 position = Vector2( 109, 241 )
 z_index = -2
 
@@ -272,8 +263,8 @@ expand = true
 
 [node name="ArmyAdd" type="TextureButton" parent="."]
 margin_left = 817.0
-margin_top = 546.0
-margin_right = 857.0
+margin_top = 539.0
+margin_right = 879.0
 margin_bottom = 586.0
 texture_normal = ExtResource( 14 )
 expand = true
@@ -326,6 +317,26 @@ custom_styles/disabled = ExtResource( 15 )
 custom_styles/normal = ExtResource( 15 )
 text = "Back To Menu"
 
+[node name="ZombieTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="DroneTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Planes" parent="." instance=ExtResource( 10 )]
+position = Vector2( -1121, 94 )
+
+[node name="Drone" parent="." instance=ExtResource( 12 )]
+position = Vector2( 893, 68 )
+
+[node name="Enemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 823, 482 )
+
+[node name="Army" parent="." instance=ExtResource( 9 )]
+position = Vector2( -193, 432 )
+
 [connection signal="pressed" from="Upgrades" to="." method="_on_Upgrades_pressed"]
 [connection signal="pressed" from="Upgrade/Army/Button" to="." method="_on_ArmyUpgradeButton_pressed"]
 [connection signal="pressed" from="Upgrade/AirForce/Button" to="." method="_on_AirForceUpgradeButton_pressed"]
@@ -336,3 +347,5 @@ text = "Back To Menu"
 [connection signal="pressed" from="MenuButton" to="MenuPanel" method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="MenuPanel/ReturnButton" to="MenuPanel" method="_on_ReturnButton_pressed"]
 [connection signal="pressed" from="MenuPanel/BackButton" to="MenuPanel" method="_on_BackButton_pressed"]
+[connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
+[connection signal="timeout" from="DroneTimer" to="." method="_on_DroneTimer_timeout"]

@@ -18,7 +18,7 @@ public class Army : KinematicBody2D
         config = new ConfigFile();
     }
     public void _on_Army2_body_entered(object body){
-        if (body == enemy){
+        if(body == enemy){
             GD.Print("A katona feláldozta magát");
             config.Load(path);
             money = Convert.ToSingle(config.GetValue("Upgrades", "Money", 0));
@@ -27,7 +27,6 @@ public class Army : KinematicBody2D
             config.Save(path);
             this.QueueFree();
         }
-
     }
 
     public override void _Process(float delta)

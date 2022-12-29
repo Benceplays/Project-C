@@ -15,12 +15,15 @@ public class Game : Node2D
 
 	public String path;
 	public ConfigFile config;
+	private Timer zombietimer;
+	private Timer dronetimer;
 	[Export] public PackedScene psarmy;
 	[Export] public PackedScene psplane;
+	[Export] public PackedScene psdrone;
+	[Export] public PackedScene pszombie;
 
 	
     private AnimatedSprite turret;
-	private AnimatedSprite plane;
 	public override void _Ready()
 	{
 		path = "res://save.cfg"; // res vagy user:
@@ -30,21 +33,22 @@ public class Game : Node2D
 		airforceLvL = Convert.ToSingle(config.GetValue("Upgrades", "AirForceLvL", 0));
 		turretLvL = Convert.ToSingle(config.GetValue("Upgrades", "TurretLvL", 0));
 
-		plane = GetNode("/root/Game/Planes/KinematicBody2D/AnimatedSprite") as AnimatedSprite;
 		turret = GetNode("/root/Game/Turret/StaticBody2D/Shot") as AnimatedSprite;
 		upgradepanel = GetNode("Upgrade") as Panel;
 		armylvllabel = GetNode("Upgrade/Army/ArmyLvL") as Label;
 		airforcelvllabel = GetNode("Upgrade/AirForce/AirForceLvL") as Label;
 		turretlvllabel = GetNode("Upgrade/Turret/TurretLvL") as Label;
 		moneylabel = GetNode("MoneyLabel") as Label;
+		zombietimer = GetNode("ZombieTimer") as Timer;
+		dronetimer = GetNode("DroneTimer") as Timer;
+
 		turret.Play("Shot");
-		plane.Play("Plane");
         GetTree().Paused = false;
 	}
 
 	public void _on_ArmyAdd_pressed(){
 		Node2D army = (Node2D)psarmy.Instance();
-		army.Position = new Vector2(-83, 437);
+		army.Position = new Vector2(-83, 432);
 		AddChild(army);
 	}
 	public void _on_PlanesAdd_pressed(){
@@ -74,6 +78,16 @@ public class Game : Node2D
 		turretLvL++;
 		config.SetValue("Upgrades", "TurretLvL", turretLvL);
 		config.Save(path);
+	}
+	public void _on_ZombieTimer_timeout(){
+		Node2D zombieinstance = (Node2D)pszombie.Instance();
+		zombieinstance.Position = new Vector2(1330, 484);
+		AddChild(zombieinstance);
+	}
+	public void _on_DroneTimer_timeout(){
+		Node2D droneinstance = (Node2D)psdrone.Instance();
+		droneinstance.Position = new Vector2(1109, 95);
+		AddChild(droneinstance);
 	}
 	public override void _Process(float delta)
 	{  

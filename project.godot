@@ -12,7 +12,13 @@ config_version=4
 
 config/name="ProjectC"
 run/main_scene="res://scenes/Menu.tscn"
+boot_splash/image="res://assets/images/WildemLogo.png"
+boot_splash/bg_color=Color( 0.4, 0.635294, 0.729412, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+SoundController="*res://scenes/SoundController.tscn"
 
 [display]
 

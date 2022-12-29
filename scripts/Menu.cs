@@ -3,13 +3,11 @@ using System;
 
 public class Menu : Node2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
+    private AudioStreamPlayer2D music;
     public override void _Ready()
-    {   
+    {
+        music = GetNode("Music") as AudioStreamPlayer2D;
+        //music.Play();
     }
     public void _on_Play_pressed(){
         GetTree().ChangeScene("res://scenes/Game.tscn");

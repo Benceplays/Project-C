@@ -15,6 +15,7 @@ public class Planes : KinematicBody2D
 		config = new ConfigFile();
 		plane = GetNode("AnimatedSprite") as AnimatedSprite;
 		drone = GetNode("/root/Game/Drone/KinematicBody2D") as KinematicBody2D;
+		GD.Print(GetPath());
 	}
 
 	public void _on_Planes_body_entered(object body){
