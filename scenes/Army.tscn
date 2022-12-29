@@ -1,24 +1,25 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/images/soldier/soldier4.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/soldier/soldier3.png" type="Texture" id=2]
-[ext_resource path="res://assets/images/soldier/soldier6.png" type="Texture" id=3]
 [ext_resource path="res://assets/images/soldier/soldier1.png" type="Texture" id=4]
-[ext_resource path="res://assets/images/soldier/soldier5.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/soldier/soldier2.png" type="Texture" id=6]
 [ext_resource path="res://scripts/Army.cs" type="Script" id=7]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
+radius = 51.0
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 52.0
-height = 22.0
+height = 26.0
 
 [node name="Army" type="Node2D"]
 z_index = -1
@@ -28,9 +29,19 @@ script = ExtResource( 7 )
 
 [node name="Army" type="AnimatedSprite" parent="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 1 )
+frames = SubResource( 4 )
 animation = "Walk"
+frame = 2
+speed_scale = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 1, 5 )
+position = Vector2( 2, 34 )
 shape = SubResource( 2 )
+
+[node name="Army2" type="Area2D" parent="KinematicBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Army2"]
+position = Vector2( 2, 34 )
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="KinematicBody2D/Army2" to="KinematicBody2D" method="_on_Army2_body_entered"]
