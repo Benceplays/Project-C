@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/Game.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/UpgradeButton.png" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://assets/styles/OptionsPanel.tres" type="StyleBox" id=16]
 [ext_resource path="res://scripts/MenuPanel.cs" type="Script" id=17]
 [ext_resource path="res://assets/images/Menu.png" type="Texture" id=18]
+[ext_resource path="res://assets/images/armynumber.png" type="Texture" id=19]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.588235 )
@@ -65,10 +66,17 @@ font_data = ExtResource( 4 )
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=12]
 size = 20
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 0.392157 )
+
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=15]
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=10]
@@ -76,6 +84,12 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 20
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
 [node name="Game" type="Node2D"]
@@ -235,14 +249,6 @@ visible = false
 position = Vector2( 109, 241 )
 z_index = -2
 
-[node name="MoneyLabel" type="Label" parent="."]
-modulate = Color( 0.992157, 1, 0, 1 )
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 177.0
-margin_bottom = 32.0
-custom_fonts/font = SubResource( 9 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 511, 299 )
 current = true
@@ -269,11 +275,69 @@ margin_bottom = 586.0
 texture_normal = ExtResource( 14 )
 expand = true
 
-[node name="MenuButton" type="TextureButton" parent="."]
-margin_left = 943.0
+[node name="ZombieTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="DroneTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Planes" parent="." instance=ExtResource( 10 )]
+position = Vector2( -1121, 94 )
+
+[node name="Drone" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1114, 92 )
+
+[node name="Enemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 823, 482 )
+
+[node name="Army" parent="." instance=ExtResource( 9 )]
+position = Vector2( -193, 432 )
+
+[node name="FpsLabel" type="Label" parent="."]
+margin_left = 11.0
+margin_top = 9.0
+margin_right = 67.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 12 )
+
+[node name="HUD" type="Panel" parent="."]
+margin_left = 775.0
 margin_top = 13.0
-margin_right = 1007.0
-margin_bottom = 77.0
+margin_right = 1010.0
+margin_bottom = 95.0
+custom_styles/panel = SubResource( 13 )
+
+[node name="Armys" type="Label" parent="HUD"]
+margin_left = 29.0
+margin_top = 50.0
+margin_right = 69.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 14 )
+
+[node name="Planes" type="Label" parent="HUD"]
+margin_left = 105.0
+margin_top = 50.0
+margin_right = 150.0
+margin_bottom = 73.0
+custom_fonts/font = SubResource( 15 )
+
+[node name="ArmySprite" type="Sprite" parent="HUD"]
+position = Vector2( 15, 62 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 19 )
+
+[node name="PlaneSprite" type="Sprite" parent="HUD"]
+position = Vector2( 81, 62 )
+scale = Vector2( 0.08, 0.09 )
+texture = ExtResource( 13 )
+
+[node name="MenuButton" type="TextureButton" parent="."]
+margin_left = 937.0
+margin_top = 22.0
+margin_right = 1001.0
+margin_bottom = 86.0
 texture_normal = ExtResource( 18 )
 texture_pressed = ExtResource( 18 )
 texture_hover = ExtResource( 18 )
@@ -317,25 +381,21 @@ custom_styles/disabled = ExtResource( 15 )
 custom_styles/normal = ExtResource( 15 )
 text = "Back To Menu"
 
-[node name="ZombieTimer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="MoneyLabel" type="Label" parent="."]
+modulate = Color( 0.992157, 1, 0, 1 )
+margin_left = 786.0
+margin_top = 27.0
+margin_right = 839.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 9 )
+
+[node name="ArmyTimer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
-[node name="DroneTimer" type="Timer" parent="."]
+[node name="PlaneTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
-
-[node name="Planes" parent="." instance=ExtResource( 10 )]
-position = Vector2( -1121, 94 )
-
-[node name="Drone" parent="." instance=ExtResource( 12 )]
-position = Vector2( 893, 68 )
-
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 823, 482 )
-
-[node name="Army" parent="." instance=ExtResource( 9 )]
-position = Vector2( -193, 432 )
 
 [connection signal="pressed" from="Upgrades" to="." method="_on_Upgrades_pressed"]
 [connection signal="pressed" from="Upgrade/Army/Button" to="." method="_on_ArmyUpgradeButton_pressed"]
@@ -344,8 +404,10 @@ position = Vector2( -193, 432 )
 [connection signal="pressed" from="Upgrade/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="PlanesAdd" to="." method="_on_PlanesAdd_pressed"]
 [connection signal="pressed" from="ArmyAdd" to="." method="_on_ArmyAdd_pressed"]
+[connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
+[connection signal="timeout" from="DroneTimer" to="." method="_on_DroneTimer_timeout"]
 [connection signal="pressed" from="MenuButton" to="MenuPanel" method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="MenuPanel/ReturnButton" to="MenuPanel" method="_on_ReturnButton_pressed"]
 [connection signal="pressed" from="MenuPanel/BackButton" to="MenuPanel" method="_on_BackButton_pressed"]
-[connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
-[connection signal="timeout" from="DroneTimer" to="." method="_on_DroneTimer_timeout"]
+[connection signal="timeout" from="ArmyTimer" to="." method="_on_ArmyTimer_timeout"]
+[connection signal="timeout" from="PlaneTimer" to="." method="_on_PlaneTimer_timeout"]

@@ -3,11 +3,34 @@ using System;
 
 public class Menu : Node2D
 {
-    private AudioStreamPlayer2D music;
+    private Label fpslabel;
+    public String path;
+	public ConfigFile config;
+    private bool fpsison;
     public override void _Ready()
     {
-        music = GetNode("Music") as AudioStreamPlayer2D;
-        //music.Play();
+        path = "res://save.cfg"; // res vagy user:
+        config = new ConfigFile();
+        config.Load(path);
+        fpsison = Convert.ToBoolean(Convert.ToSingle(config.GetValue("Options", "MenuFps", 0)));
+        fpslabel = GetNode("FpsLabel") as Label;
+        if(fpsison == true){
+            switch (Convert.ToSingle(config.GetValue("Options", "FpsTarget", 0)))
+            {
+                case 30:
+                    Engine.TargetFps = 30;
+                    break;
+                case 60:
+                    Engine.TargetFps = 60;
+                    break;
+                case 90:
+                    Engine.TargetFps = 90;
+                    break;
+                case 120:
+                    Engine.TargetFps = 120;
+                    break;
+            }
+        }
     }
     public void _on_Play_pressed(){
         GetTree().ChangeScene("res://scenes/Game.tscn");
@@ -19,9 +42,8 @@ public class Menu : Node2D
         GetTree().Quit();
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public override void _Process(float delta)
+    {
+        if(fpsison == true){fpslabel.Text = $"{Convert.ToInt32(1 / delta)} FPS";}    
+    }
 }

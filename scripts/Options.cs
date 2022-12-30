@@ -10,6 +10,8 @@ public class Options : Node2D
     private HSlider mainvolume;
     private HSlider musicvolume;
     private HSlider soundeffectvolume;
+    private AudioStreamPlayer2D music;
+    private Label fpstargetlabel;
 
     public String path;
 	public ConfigFile config;
@@ -21,6 +23,8 @@ public class Options : Node2D
         mainvolume = GetNode("Audio/MainVolume") as HSlider;
         musicvolume = GetNode("Audio/MusicVolume") as HSlider;
         soundeffectvolume = GetNode("Audio/SoundEffectVolume") as HSlider;
+        music = GetNode("/root/SoundController/Music") as AudioStreamPlayer2D;
+        fpstargetlabel = GetNode("Display/FpsTarget/FpsTarget") as Label;
 
         path = "res://save.cfg"; // res vagy user:
 		config = new ConfigFile();
@@ -59,9 +63,12 @@ public class Options : Node2D
         config.SetValue("Options", "MusicVolume", musicvolume.Value);
         config.SetValue("Options", "SoundEffectVolume", soundeffectvolume.Value);
 		config.Save(path);
+        config.Load(path);
+        music.VolumeDb = Convert.ToSingle(config.GetValue("Options", "MusicVolume", 0));
     }
     public override void _Process(float delta)
     {
+        fpstargetlabel.Text = $"{fpstarget.Value}";
         if(gamefpscheck.Pressed){gamefpscheck.Text = "ON";} else{ gamefpscheck.Text = "OFF";}
         if(menufpscheck.Pressed){menufpscheck.Text = "ON";} else{ menufpscheck.Text = "OFF";}
     }
