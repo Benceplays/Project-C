@@ -26,7 +26,7 @@ public class Options : Node2D
         music = GetNode("/root/SoundController/Music") as AudioStreamPlayer2D;
         fpstargetlabel = GetNode("Display/FpsTarget/FpsTarget") as Label;
 
-        path = "res://save.cfg"; // res vagy user:
+        path = "user://save.cfg"; // res vagy user:
 		config = new ConfigFile();
 		config.Load(path);
 		gamefpscheck.Pressed = Convert.ToBoolean(Convert.ToSingle(config.GetValue("Options", "GameFps", 0)));

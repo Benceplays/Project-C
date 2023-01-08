@@ -14,7 +14,7 @@ public class Army : KinematicBody2D
     {
         army = GetNode("Army") as AnimatedSprite;
         enemy = GetNode("/root/Game/Enemy/KinematicBody2D") as KinematicBody2D;
-        path = "res://save.cfg"; //res vagy user:
+        path = "user://save.cfg"; //res vagy user:
         config = new ConfigFile();
     }
     public void _on_Army2_body_entered(object body){

@@ -26,6 +26,10 @@ public class Game : Node2D
 	private Label armyslabel;
 	private Label planeslabel;
 
+	private Button armyprize;
+	private Button airforceprize;
+	private Button turretprize;
+
 	[Export] public PackedScene psarmy;
 	[Export] public PackedScene psplane;
 	[Export] public PackedScene psdrone;
@@ -34,7 +38,7 @@ public class Game : Node2D
 	
 	public override void _Ready()
 	{
-		path = "res://save.cfg"; // res vagy user:
+		path = "user://save.cfg"; // res vagy user:
 		config = new ConfigFile();
 		config.Load(path);
 		armyLvL = Convert.ToSingle(config.GetValue("Upgrades", "ArmyLvL", 0));
@@ -55,6 +59,10 @@ public class Game : Node2D
 		fpslabel = GetNode("FpsLabel") as Label;
 		armyslabel = GetNode("HUD/Armys") as Label;
 		planeslabel = GetNode("HUD/Planes") as Label;
+		armyprize = GetNode("Upgrade/Army/Button") as Button;
+		airforceprize = GetNode("Upgrade/AirForce/Button") as Button;
+		turretprize = GetNode("Upgrade/Turret/Button") as Button;
+
 
 		turret.Play("Shot");
         GetTree().Paused = false;
@@ -139,5 +147,8 @@ public class Game : Node2D
 		armylvllabel.Text = $"LvL.: {armyLvL}";
 		airforcelvllabel.Text = $"LvL.: {airforceLvL}";
 		turretlvllabel.Text = $"LvL.: {turretLvL}";
+		armyprize.Text = $"$50";
+		airforceprize.Text = $"$70";
+		turretprize.Text = $"$100";
 	}
 }

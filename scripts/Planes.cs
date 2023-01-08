@@ -11,7 +11,7 @@ public class Planes : KinematicBody2D
 	private float money;
 	public override void _Ready()
 	{
-		path = "res://save.cfg"; //res vagy user:
+		path = "user://save.cfg"; //res vagy user:
 		config = new ConfigFile();
 		plane = GetNode("AnimatedSprite") as AnimatedSprite;
 		drone = GetNode("/root/Game/Drone/KinematicBody2D") as KinematicBody2D;

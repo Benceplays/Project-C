@@ -9,7 +9,7 @@ public class Menu : Node2D
     private bool fpsison;
     public override void _Ready()
     {
-        path = "res://save.cfg"; // res vagy user:
+        path = "user://save.cfg"; // res vagy user:
         config = new ConfigFile();
         config.Load(path);
         fpsison = Convert.ToBoolean(Convert.ToSingle(config.GetValue("Options", "MenuFps", 0)));
